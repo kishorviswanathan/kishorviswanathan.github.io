@@ -1,0 +1,259 @@
+body {
+    background-color: #263137;
+    font-family: terminal;
+    margin: 5px;
+    border: 2px solid #171e23;
+    border-radius: 10px;
+}
+
+.data {
+    display: none;
+}
+
+.black {
+    color: #000000;
+}
+
+.red {
+    color: #ff5151;
+}
+
+.green {
+    color: #69f0ad;
+}
+
+.yellow {
+    color: #ffd73f;
+}
+
+.blue {
+    color: #38a2d1;
+}
+
+.white {
+    color: #fefefe;
+}
+
+.grey {
+    color: #abb1b5;
+}
+
+.bg-black {
+    background-color: #000000;
+}
+
+.bg-red {
+    background-color: #ff5151;
+}
+
+.bg-green {
+    background-color: #69f0ad;
+}
+
+.bg-yellow {
+    background-color: #ffd73f;
+}
+
+.bg-blue {
+    background-color: #38a2d1;
+}
+
+.bg-white {
+    background-color: #fefefe;
+}
+
+.titlebar {
+    padding: 5px 10px;
+    background: #141c21;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.titlebar .buttons {
+    display: inline-block;
+    position: absolute;
+}
+
+.titlebar span {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    border-radius: 50%;
+}
+
+.titlebar .title-text {
+    display: inline-block;
+    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    text-align: center;
+    color: #d4d3d3;
+}
+
+.terminal {
+    padding: 5px;
+    height: calc( 100vh - 50px);
+    display: block;
+    overflow: scroll;
+}
+
+.prompt {margin: 15px 0px 5px 0px;z-index: 1;}
+
+.prompt > span {
+    padding: 1px 5px 3px 15px;
+    background-color: #38a2d1;
+    color: white;
+}
+
+.prompt > .host {
+    color: #000;
+    background-color: #fefefe;
+}
+
+.prompt > .host::after {
+    color: #fff;
+}
+
+.prompt > .user {
+    background-color: #ff5151;
+}
+
+.prompt > .user::after {
+    color: #ff5151;
+}
+
+.prompt > .time {
+    float:right;
+    background-color: #fefefe;
+    color: #000;
+    padding-left: 10px;
+    padding-right: 15px;
+    padding-bottom: 0px;
+}
+
+.prompt > .time::after,
+.prompt > .text::after,
+.prompt > .cursor::after {
+    content: '';
+}
+
+.prompt > .time::before{
+    content: '\e0b2';
+    padding-right: 0px;
+    color: #fefefe;
+    position: relative;
+    margin-left: -20px;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+
+.prompt > .text {
+    background-color:transparent;
+    padding: 0px;
+    padding-left: 20px;
+    color: #fff;
+}
+
+.prompt > .cursor {
+    background-color: rgba(255, 255, 255,1);
+    animation: cursor 0.5s infinite;
+    padding: 1px 5px;
+    margin-left: 12px;
+    display: inline-block;
+}
+
+.line {
+    color: #fff;
+    padding: 2px;
+}
+
+.prompt > span::after{
+    content:'\e0b0';
+    padding-left: 5px;
+    margin-left: 0px;
+    margin-right: -17px;
+    font-size: 20px;
+    color: #38a2d1;
+    z-index: 0;
+    position: relative;
+    vertical-align: middle;
+}
+
+.terminal a{
+    color: inherit;
+}
+
+.info {
+    display: inline-block;
+    margin-left: 30px;
+    vertical-align: top;
+    color: #fff;
+}
+
+.info a {
+    color: #fff;
+    text-decoration: unset;
+}
+
+.info > p {
+    margin: 12px 0px;
+}
+
+.dp {
+    width: 280px;
+    display: inline-block;
+    margin: 10px;
+}
+
+.table {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 30px;
+}
+
+h3 {
+    margin-left: 10px;
+}
+
+.table td {
+    vertical-align: top;
+    padding: 10px 0px;
+}
+
+.table tr {
+}
+
+.color-pallete > div {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    content: ' ';
+    margin: -4px;
+    margin-top: 10px;
+}
+
+@keyframes cursor {
+    0% {
+        background-color: rgba(255, 255, 255,1); 
+    }
+
+    50% {
+        background-color: rgba(255, 255, 255,0);
+    }
+
+    100% {
+        background-color: rgba(255, 255, 255,1);
+    }
+}
+
+@font-face {
+    font-family: terminal;
+    src: url(../fonts/UbuntuMono.ttf);
+}
+@font-face {
+    font-family: terminal;
+    src: url(../fonts/UbuntuMono-bold.ttf);
+    font-weight: bold;
+}
