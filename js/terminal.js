@@ -1,7 +1,7 @@
     var terminal = $("#terminal");
 var commandHistory = [];
 var currentHistoryPosition = null;
-var homePaths = ["~",".","./","~/", "/root/", "/root"];
+var homePaths = ["~",".","./","~/", "/home/user/", "/home/user"];
 var files = $('.data > #files > div').map(function(){
     return $(this).attr('id');
 }).get();
@@ -19,6 +19,12 @@ var allCommands = {
              terminal.append($(".data > #files > #"+f.replace('.','\\.')).html());
          }
          return;
+    },
+    "cd" : function(vars){
+        if (vars.length != 0 && (homePaths.indexOf(vars[0]) == -1)){
+            return "zsh: Permission denied !!"; 
+        }
+        return;
     },
     "clear" : function(vars){
         terminal.empty();
@@ -41,7 +47,7 @@ var allCommands = {
     },
     "ls" : function(vars) {
         if (vars.length != 0 && (homePaths.indexOf(vars[0]) == -1)){
-            return "ksh: Permission denied !!"; 
+            return "zsh: Permission denied !!"; 
         }
         return files.join("\n")  
     },
@@ -49,10 +55,10 @@ var allCommands = {
         return "pong!!";
     },
     "pwd" : function(vars){
-        return "/root";
+        return "/home/user";
     },
     "sudo" : function(vars) {
-        return "Oops!! You are already 'root'. Remember, with great power comes great responsibility.";
+        return "'user' is not in the sudoers file.";
     },
     "which" : function(vars){
         if (vars.length == 0)
@@ -82,7 +88,7 @@ function showPrompt(){
     }, 300);
     var time = Date().match("[0-9]+:[0-9]+:[0-9]+")[0];
     $(".prompt").last().find(".cursor").remove();
-    terminal.append("<div class='prompt'><span class='host'>localhost</span><span class='folder'>~</span><span class='user'>root</span><span class='text'></span><span class='cursor'></span><span class='time'>"+time+"</span></div>");
+    terminal.append("<div class='prompt'><span class='host'>localhost</span><span class='folder'>~</span><span class='user'>user</span><span class='text'></span><span class='cursor'></span><span class='time'>"+time+"</span></div>");
 }
 
 function executeCommand(command){
@@ -95,7 +101,7 @@ function executeCommand(command){
     var commandAsArray = command.split(" ");
     var commandFunction = allCommands[commandAsArray[0]];
     if (commandFunction == undefined){
-        printLine("ksh: command not found: " + commandAsArray[0] );
+        printLine("zsh: command not found: " + commandAsArray[0] );
     }else{
         parameters = commandAsArray.slice(1);
         expandedParameters = [];
