@@ -200,12 +200,18 @@ function isMobileorTablet() {
     return check;
 };
 
-if (isMobileorTablet()){
-    printLine("zsh: Warning!! Mobile Device detected.\nPlease use a computer for the interactive experience...");
+$( document ).ready(() => {
+    $(".loading").addClass("done");
     window.setTimeout(() => {
         terminal.html("");
-        executeCommand("neofetch");
-    }, 5000);
-}else{
-    executeCommand("neofetch");
-}
+        if (isMobileorTablet()){
+            printLine("zsh: Warning!! Mobile Device detected.\nPlease use a computer for the interactive experience...");
+            window.setTimeout(() => {
+                terminal.html("");
+                executeCommand("neofetch");
+            }, 5000);
+        }else{
+            executeCommand("neofetch");
+        }
+    }, 2000);
+});
