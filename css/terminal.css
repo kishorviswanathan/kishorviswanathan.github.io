@@ -65,6 +65,7 @@
     margin: auto;
     margin-top: 15vh;
     padding-bottom: 10px;
+    min-width: 850px;
 }
 
 .titlebar {
