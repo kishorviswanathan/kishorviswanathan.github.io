@@ -5,7 +5,6 @@ var homePaths = ["~",".","./","~/", "/home/user/", "/home/user"];
 var files = $('.data > #files > div').map(function(){
     return $(this).attr('id');
 }).get();
-var demoMode = false;
 
 var allCommands = {
     "cat" :  function(vars){
@@ -108,11 +107,9 @@ function printLine(text){
 }
 
 function showPrompt(){
-    if (!demoMode){
-        $("#terminal").stop().animate({
-            scrollTop: $("#terminal")[0].scrollHeight
-        }, 300);
-    }
+    $("#terminal").stop().animate({
+        scrollTop: $("#terminal")[0].scrollHeight
+    }, 300);
     var time = Date().match("[0-9]+:[0-9]+:[0-9]+")[0];
     $(".prompt").last().find(".cursor").remove();
     terminal.append("<div class='prompt'><span class='host'>localhost</span><span class='folder'>~</span><span class='user'>user</span><span class='text'></span><span class='cursor'></span><span class='time'>"+time+"</span></div>");
@@ -203,27 +200,12 @@ function isMobileorTablet() {
     return check;
 };
 
-function enterDemoMode(){
-    demoMode = true;
-    printLine("zsh: Mobile Device detected. Entering Demo mode...");
+if (isMobileorTablet()){
+    printLine("zsh: Warning!! Mobile Device detected.\nPlease use a computer for the interactive experience...");
     window.setTimeout(() => {
         terminal.html("");
         executeCommand("neofetch");
-        window.setTimeout(() => {
-            $(".prompt").last().find(".text").html("cat&nbsp;*");
-            executeCommand("cat *");
-            $("#terminal").stop().animate({
-                scrollTop: $("#terminal")[0].scrollHeight
-            }, 40000, "linear", (() => {
-                $("#terminal").stop();
-                demoMode = false;
-            }));
-        },10000);
-    }, 2000);
-}
-
-if (isMobileorTablet()){
-    enterDemoMode();
+    }, 5000);
 }else{
     executeCommand("neofetch");
 }
