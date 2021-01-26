@@ -1,32 +1,51 @@
 var terminal = $("#terminal");
 var commandHistory = [];
 var currentHistoryPosition = null;
-var homePaths = ["~", ".", "./", "~/", "/home/user/", "/home/user"];
-var files = $('.data > #files > div').map(function () {
-    return $(this).attr('id');
-}).get();
+var user = "user";
+var host = "kishorv06.gitlab.io";
+var currentDir = "/home/user/portfolio/";
+var permittedDirectories = ["~", ".", "./", "~/", "/home/user/portfolio", "/home/user/portfolio"];
+var files = [];
 
 var allCommands = {
     "cat": function (vars) {
         if (vars.length == 0)
-            return;
+            return "cat: No file specified.";
 
         var results = "";
         for (let f of vars.values()) {
+            var file = f;
+            if (!file.startsWith("/"))
+                file = currentDir + file;
 
-            if (!files.includes(f))
+            if (!files.includes(file))
                 return "cat: " + f + ": no such file or directory";
 
-            results += $(".data > #files > #" + f.replace('.', '\\.')).html();
+            var selector = file.split("/").flatMap((item) => {
+                if (item)
+                    return "#" + item.replace('.', '\\.');
+                return [];
+            }).join('>');
+
+            results += $(".data > #files > " + selector).html();
         }
 
         printHtml(results, showPrompt);
         return;
     },
     "cd": function (vars) {
-        if (vars.length != 0 && (homePaths.indexOf(vars[0]) == -1)) {
-            return "zsh: Permission denied !!";
+        var directory = vars.length == 1 ? vars[0] : "/home/" + user;
+        if (!directory.startsWith("/"))
+            if (directory.startsWith("../"))
+                directory = currentDir.split("/").slice(0, -2).concat(directory.split("/").slice(1)).join("/")
+            else
+                directory = currentDir + directory;
+
+        directory = getAbsolutePath(directory);
+        if (files.indexOf(directory) == -1 || !directory.endsWith("/")) {
+            return "cd: no such file or directory: " + directory;
         }
+        currentDir = directory;
         return "";
     },
     "clear": function (vars) {
@@ -50,10 +69,18 @@ var allCommands = {
         return response;
     },
     "ls": function (vars) {
-        if (vars.length != 0 && (homePaths.indexOf(vars[0]) == -1)) {
-            return "zsh: Permission denied !!";
-        }
-        return files.join("\n")
+        var results = [];
+        var directory = (vars.length == 1) ? vars[0] : currentDir;
+        directory = getAbsolutePath(directory);
+        files.forEach((item) => {
+            if (item.startsWith(directory)) {
+                var relativePath = item.replace(directory, "");
+                if (relativePath.indexOf("/") == -1 || relativePath.indexOf("/") == relativePath.length - 1) {
+                    results = results.concat(relativePath);
+                }
+            }
+        });
+        return results.join('\n');
     },
     "neofetch": function (vars) {
         printHtml(`
@@ -66,12 +93,14 @@ var allCommands = {
             <p><span class='yellow'>Skills:</span> Linux, Android, Python, Web Development</p>
             <p><span class='yellow'>Source Code:</span> <a href='https://gitlab.com/kishorv06/portfolio'>Gitlab</a></p>
             <p><span class='yellow'>Last Updated:</span> 16 July 2020</p>
-            <div class='palette-block bg-black'></div>
             <div class='palette-block bg-red'></div>
-            <div class='palette-block bg-green'></div>
             <div class='palette-block bg-yellow'></div>
+            <div class='palette-block bg-green'></div>
             <div class='palette-block bg-blue'></div>
+            <div class='palette-block bg-cyan'></div>
+            <div class='palette-block bg-magenta'></div>
             <div class='palette-block bg-white'></div>
+            <div class='palette-block bg-black'></div>
         `, showPrompt);
         return;
     },
@@ -79,7 +108,7 @@ var allCommands = {
         return "pong!!";
     },
     "pwd": function (vars) {
-        return "/home/user";
+        return currentDir;
     },
     "sudo": function (vars) {
         return "'user' is not in the sudoers file.";
@@ -95,6 +124,18 @@ var allCommands = {
     "whoami": function (vars) {
         return "user";
     }
+}
+
+function getAbsolutePath(path) {
+    path = path.replace("~/", "/home/" + user + "/");
+    path = path.endsWith("/") ? path : path + "/";
+    return path;
+}
+
+function scrollToBottom() {
+    $("#terminal").animate({
+        scrollTop: $("#terminal")[0].scrollHeight
+    }, 50);
 }
 
 function printHtml(html, onComplete) {
@@ -118,20 +159,21 @@ function print(lines, is_html, onComplete) {
             if (index == lines.length - 1) {
                 onComplete();
             }
-            $("#terminal").animate({
-                scrollTop: $("#terminal")[0].scrollHeight
-            }, 50);
+            scrollToBottom();
         }, 50 * index);
     });
 }
 
 function showPrompt() {
-    var time = Date().match("[0-9]+:[0-9]+:[0-9]+")[0];
-    $(".prompt").last().find(".cursor").remove();
-    terminal.append("<div class='prompt'><span class='host'>localhost</span><span class='folder'>~</span><span class='user'>user</span><span class='text'></span><span class='cursor'></span><span class='time'>" + time + "</span></div>");
+    var minimalWD = currentDir.replace("/home/" + user, "~")
+    minimalWD = minimalWD.endsWith("/") ? minimalWD.slice(0, -1) : minimalWD;
+    terminal.append(`<div class='prompt'>[<span class="red">` + user + `</span>@<span class="green">` + host + `</span><span class="white">:</span> <span class="blue">` + minimalWD + `</span>] $ <span class="text"></span><span class="cursor"></span></div>`);
+    $(".title-text").html(user + "@" + host + " : " + minimalWD);
+    scrollToBottom();
 }
 
 function executeCommand(command) {
+    $(".prompt").last().find(".cursor").remove();
     if (command == "") {
         showPrompt();
         return;
@@ -219,8 +261,38 @@ function isMobileorTablet() {
     return check;
 };
 
+function scanFiles(path) {
+    if (!path)
+        path = Array();
+    var selector = ['.data', '#files'].concat(
+        path.flatMap((item) => {
+            if (item)
+                return "#" + item;
+            return [];
+        }),
+        ['div']
+    ).join('>');
+
+    $(selector).map(function () {
+        var id = $(this).attr('id');
+        if ($(this).children("div").length > 0) {
+            // Is a directory
+            files = files.concat(
+                "/" + path.concat(id).join("/") + "/"
+            );
+            scanFiles(path.concat(id));
+        } else {
+            // Is a file
+            files = files.concat(
+                "/" + path.concat(id).join("/")
+            );
+        }
+    });
+}
+
 $(document).ready(() => {
     $(".loading").addClass("done");
+    scanFiles();
     window.setTimeout(() => {
         terminal.html("");
         if (isMobileorTablet()) {

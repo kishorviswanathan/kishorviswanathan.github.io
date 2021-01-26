@@ -1,65 +1,86 @@
+:root{
+    --red: #e4513e;
+    --yellow: #f6c035;
+    --green: #cddc39;
+    --blue: #42a5f5;
+    --cyan: #56adc2;
+    --magenta: #db5160;
+    --white: #f5f5f5;
+    --black: #5d6f71;
+    --text: #a1b0b8;
+    --background: #252525;
+}
+
 .data {
     display: none;
 }
 
-.black {
-    color: #000000;
-}
-
 .red {
-    color: #ff5151;
-}
-
-.green {
-    color: #69f0ad;
+    color: var(--red) !important;
 }
 
 .yellow {
-    color: #ffd73f;
+    color: var(--yellow) !important;
+}
+
+.green {
+    color: var(--green) !important;
 }
 
 .blue {
-    color: #38a2d1;
+    color: var(--blue) !important;
+}
+
+.cyan {
+    color: var(--cyan) !important;
+}
+
+.magenta {
+    color: var(--magenta) !important;
 }
 
 .white {
-    color: #fefefe;
+    color: var(--white) !important;
 }
 
-.grey {
-    color: #abb1b5;
-}
-
-.bg-black {
-    background-color: #000000;
+.black {
+    color: var(--black) !important;
 }
 
 .bg-red {
-    background-color: #ff5151;
-}
-
-.bg-green {
-    background-color: #69f0ad;
+    background-color: var(--red) !important;
 }
 
 .bg-yellow {
-    background-color: #ffd73f;
+    background-color: var(--yellow) !important;
+}
+
+.bg-green {
+    background-color: var(--green) !important;
 }
 
 .bg-blue {
-    background-color: #38a2d1;
+    background-color: var(--blue) !important;
+}
+
+.bg-cyan {
+    background-color: var(--cyan) !important;
+}
+
+.bg-magenta {
+    background-color: var(--magenta) !important;
 }
 
 .bg-white {
-    background-color: #fefefe;
+    background-color: var(--white) !important;
 }
 
-p {
-    color: #fff;
+.bg-black {
+    background-color: var(--black) !important;
 }
 
 .window {
-    background-color: #292a2b;
+    background-color: var(--background);
     font-family: monospace, monospace;
     font-size: 15px;
     box-shadow: 0 0 0 0 rgba(0,0,0,.3), 0 23px 38px 0 rgba(0,0,0,.43), 0 25px 65px 0 rgba(0,0,0,.1);
@@ -98,7 +119,7 @@ p {
     margin-right: auto;
     width: 100%;
     text-align: center;
-    color: #d4d3d3;
+    color: var(--white);
 }
 
 .terminal {
@@ -107,6 +128,7 @@ p {
     display: block;
     overflow: hidden scroll;
     line-height: 18px;
+    color: var(--white);
 }
 
 .terminal::-webkit-scrollbar {
@@ -126,89 +148,24 @@ p {
 .prompt {
     margin: 15px 0px 5px 0px;
     z-index: 1;
+    color: var(--white);
 }
 
 .prompt > span {
-    padding: 1px 6px 2px 15px;
-    background-color: #38a2d1;
-    color: white;
-}
-
-.prompt > .host {
-    color: #000;
-    background-color: #fefefe;
-}
-
-.prompt > .host::after {
-    color: #fff;
-}
-
-.prompt > .user {
-    background-color: #ff5151;
-}
-
-.prompt > .user::after {
-    color: #ff5151;
-}
-
-.prompt > .time {
-    float:right;
-    background-color: #fefefe;
-    color: #000;
-    padding-left: 10px;
-    padding-right: 15px;
-    padding-bottom: 0px;
-}
-
-.prompt > .time::after,
-.prompt > .text::after,
-.prompt > .cursor::after {
-    content: '';
-}
-
-.prompt > .time::before{
-    content: '\e0b2';
-    padding-right: 0px;
-    color: #fefefe;
-    position: relative;
-    margin-left: -20px;
-    font-size: 20px;
-    vertical-align: middle;
-    font-family: terminal;
-}
-
-
-.prompt > .text {
-    background-color:transparent;
     padding: 0px;
-    padding-left: 20px;
-    color: #fff;
 }
 
 .prompt > .cursor {
     background-color: rgba(255, 255, 255,1);
     animation: cursor 0.5s infinite;
     padding: 1px 5px;
-    margin-left: 12px;
+    margin-left: 2px;
     display: inline-block;
 }
 
 .line {
-    color: #fff;
+    color: var(--white);
     padding: 2px;
-}
-
-.prompt > span::after{
-    content:'\e0b0';
-    padding-left: 5px;
-    margin-left: 0px;
-    margin-right: -17px;
-    font-size: 20px;
-    color: #38a2d1;
-    z-index: 0;
-    position: relative;
-    vertical-align: middle;
-    font-family: terminal;
 }
 
 .terminal a{
@@ -260,9 +217,9 @@ h3 {
 }
 
 body {
-    background: linear-gradient(45deg, #2f3e7f, #a5308b, #ea3348, #eb4d41, #4499da, #4195d8);
+    background: linear-gradient(45deg, var(--black), var(--red), var(--magenta), var(--blue), var(--cyan));
     background-size: 400% 400%;
-    animation: bg-animation 10s ease-in-out infinite;
+    animation: bg-animation 30s ease-in-out infinite;
 }
 
 .loading {
