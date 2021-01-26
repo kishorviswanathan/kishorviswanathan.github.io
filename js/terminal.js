@@ -1,10 +1,9 @@
 var terminal = $("#terminal");
 var commandHistory = [];
 var currentHistoryPosition = null;
-var user = "user";
-var host = "kishorv06.gitlab.io";
-var currentDir = "/home/user/portfolio/";
-var permittedDirectories = ["~", ".", "./", "~/", "/home/user/portfolio", "/home/user/portfolio"];
+var user = "kishorv06";
+var host = "gitlab.io";
+var currentDir = "/home/" + user + "/portfolio/";
 var files = [];
 
 var allCommands = {
@@ -111,7 +110,7 @@ var allCommands = {
         return currentDir;
     },
     "sudo": function (vars) {
-        return "'user' is not in the sudoers file.";
+        return "'" + user + "' is not in the sudoers file.";
     },
     "which": function (vars) {
         if (vars.length == 0)
@@ -122,7 +121,7 @@ var allCommands = {
         return vars[0] + " not found";
     },
     "whoami": function (vars) {
-        return "user";
+        return user;
     }
 }
 
