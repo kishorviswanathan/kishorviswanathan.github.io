@@ -2,7 +2,7 @@ var terminal = $("#terminal");
 var commandHistory = [];
 var currentHistoryPosition = null;
 var user = "kishorv06";
-var host = "gitlab.io";
+var host = "github.io";
 var currentDir = "/home/" + user + "/portfolio/";
 var files = [];
 
