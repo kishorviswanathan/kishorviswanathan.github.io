@@ -124,6 +124,9 @@ function updateHistory(command) {
     commandHistory.push(command);
     currentHistoryPosition = commandHistory.length;
     localStorage.setItem("history", commandHistory.join("\n"));
+    if (gtag) {
+        gtag('event', 'command_executed', { 'command': command });
+    }
 }
 
 // Execute given command
