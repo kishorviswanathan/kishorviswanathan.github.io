@@ -224,15 +224,27 @@ body {
 .loading:after {
     content: '';
     display: block;
-    width: 75%;
+    width: 0%;
     height: 4px;
     background: #fff;
-    animation: load 8s linear;
+    transition: width 1s;
+    animation: load 5s linear;
     animation-iteration-count: 1;
 }
 
-.loading.done:after{
+.loading.p60:after {
+    width: 60%;
+}
+
+.loading.p80:after {
+    width: 80%;
+}
+
+.loading.p100:after {
     width: 100%;
+}
+
+.loading.done:after{
     animation: none;
 }
 

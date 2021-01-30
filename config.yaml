@@ -1,0 +1,93 @@
+---
+commandOptions:
+  neofetch:
+    - title: Name
+      value: Kishor Viswanathan
+    - title: Job Title
+      value: Associate Infrastructure Engineer
+    - title: Organisation
+      value: Truecaller
+    - title: Skills
+      value: Linux, Kubernetes, Cloud Infrastructure
+    - title: Email
+      value: developer.kishor@gmail.com
+
+# Virtual directory structure
+files:
+  home:
+    kishorv06:
+      about:
+        education.yaml: |
+          --- 
+          # Educational details
+          Education:
+            - Course: B.Tech in Computer Science & Engineering
+              University: APJ Abdul Kalam Technological University
+              Institution: College of Engineering, Cherthala
+              Year: 2015-2019
+            
+            - Course: Class XI & XII
+              University: Central Board of Secondary Education
+              Institution: Believers Church English Medium School, Alappuzha
+              Year: 2014-2015
+            
+            - Course: Class X
+              University: Central Board of Secondary Education
+              Institution: Believers Church English Medium School, Alappuzha
+              Year: 2013
+        experiences.yaml: |
+          ---
+          # Professional Experiences
+          Jobs:
+            - Organisation: Truecaller
+                - Position: Associate Infrastructure Engineer
+                  Duration: Mar 2020 - Present
+                - Position: Intern - Platform & Infrastructure
+                  Duration: Sep 2019 - Mar 2020, 6 Months
+            
+            - Organisation: MicroID
+                - Position: Co-Founder
+                  Duration: Jan 2017 - Present
+            
+            - Organisation: Openwire Inc.
+                - Position: CTO & Co-Founder
+                  Duration: Oct 2016 - Present
+            
+            - Organisation: Syscort
+                - Position: Freelance Android Developer
+                  Duration: Feb 2016 - Oct 2016, 9 months
+        social_links.yaml: |
+          ---
+          # Social Media Links
+          Contacts:
+            - Type: Email
+              Value: developer.kishor@gmail.com
+            
+            - Type: Github
+              Value: https://github.com/kishorv06
+            
+            - Type: Linkedin
+              Value: https://www.linkedin.com/in/kishorv06
+            
+            - Type: Telegram
+              Value: @kishorv06
+
+      README.md: |
+        Hi there !
+        ==========
+
+        I'm **Kishor**. A DevOps Engineer and Linux enthusiast. I have built this website from scratch to look and feel like a Linux terminal. 
+
+        If you are familiar with Linux, you should be able to navigate through this website just like you would do in a terminal. Some basic commands like `cd`, `ls`, `cat` etc. are available. Run `help` to see the full set of commands.
+
+        Inspiration
+        ===========
+        * [ohmyzsh](https://ohmyz.sh) - An open source, community-driven framework for managing Zsh configuration.
+        * [iTerm2](https://iterm2.com) - A better terminal for MacOS.
+        * [neofetch](https://github.com/dylanaraps/neofetch) - Command line system information tool.
+
+        Libraries Used
+        ==============
+        * [JQuery](https://jquery.com) - A fast, small and feature-rich Javascript library.
+        * [highlight.js](https://highlightjs.org) - A javascript library for syntax highlighting.
+        * [js-yaml](https://github.com/nodeca/js-yaml) - YAML parser written for Javascript.
