@@ -249,6 +249,38 @@ body {
     animation: none;
 }
 
+/* Highlighting */
+span[class^="code"] {
+    line-height: 24px;
+}
+
+.code-strong {
+    font-weight: bold;
+}
+
+.code-meta {
+    color: var(--white);
+}
+
+.code-attr, .code-section {
+    color: var(--blue);
+}
+
+.code-bullet {
+    color: var(--white);
+}
+
+.code-string {
+    color: var(--magenta);
+}
+
+.code-comment, .code-link {
+    color: var(--green);
+}
+
+.code-number, .code-code {
+    color: var(--yellow);
+}
 @keyframes bg-animation {
     0% {
         background-position: 0 50%;

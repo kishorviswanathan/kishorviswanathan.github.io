@@ -290,6 +290,10 @@ function scanFiles(path) {
 }
 
 $(document).ready(() => {
+    // Initialize highlight JS
+    hljs.configure({
+        classPrefix: "code-"
+    });
     $(".loading").addClass("done");
     scanFiles();
     window.setTimeout(() => {
