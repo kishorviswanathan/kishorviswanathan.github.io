@@ -81,7 +81,7 @@
 
 .window {
     background-color: var(--background);
-    font-family: monospace, monospace;
+    font-family: 'terminal';
     font-size: medium;
     box-shadow: 0 0 0 0 rgba(0,0,0,.3), 0 23px 38px 0 rgba(0,0,0,.43), 0 25px 65px 0 rgba(0,0,0,.1);
     border-radius: 10px;
@@ -173,8 +173,8 @@
 }
 
 .dp {
-    width: 20em;
-    margin: 10px;
+    width: 18em;
+    margin: 15px;
     float: left;
     margin-right: 30px;
 }
