@@ -82,6 +82,37 @@ function getFile(path) {
     return null;
 }
 
+// Find file by partial path
+function getFilesFromPartialPath(path) {
+    var parentFolder = path.split("/").slice(0, -1).join("/"),
+        partialName = path.split("/").slice(-1)[0],
+        isRelative = !path.startsWith("/") && parentFolder == "",
+        fileObject = getFile(isRelative ? currentDir : parentFolder + "/"),
+        isRegex = partialName.indexOf("*") != -1,
+        regex = new RegExp(
+            partialName
+                .replace(".", "\\.")
+                .replace("*", ".*")
+        )
+    if (fileObject && fileObject.isDir) {
+        var possibleResults = Object.keys(fileObject.children).filter((f) => {
+            if (isRegex)
+                return f.match(regex);
+            else
+                return f.startsWith(partialName);
+        })
+        possibleResults.forEach((item, index) => {
+            if (!isRelative)
+                possibleResults[index] = parentFolder + "/" + item;
+        });
+        if (isRegex)
+            return possibleResults;
+        else if (possibleResults.length > 0)
+            return possibleResults.slice(0, 1);
+    }
+    return [];
+}
+
 /*---------------------- 
     Output functions
 ------------------------*/
@@ -145,11 +176,18 @@ function executeCommand(command) {
         parameters = commandAsArray.slice(1);
         expandedParameters = [];
         for (let p of parameters.values()) {
+            // Check is wildcard is present
             if (p.indexOf("*") > -1) {
-                query = p.replace('.', '\\.').replace('*', '.*');
-                filtered_files = files.filter((f) => { return f.match(query) });
-                $.merge(expandedParameters, filtered_files);
+                var results = getFilesFromPartialPath(p);
+                if (results && results.length > 0) {
+                    // We have some expanded results
+                    expandedParameters = expandedParameters.concat(results);
+                } else {
+                    // Expansion failed. Let command handle the error
+                    expandedParameters.push(p);
+                }
             } else {
+                // Not a wildcard expression. Add it as it is
                 expandedParameters.push(p);
             }
         }
@@ -194,18 +232,10 @@ $(window).on("keydown", function (key) {
                 }
             } else {
                 var partialPath = commandAsArray[commandAsArray.length - 1];
-                var parentFolder = partialPath.split("/").slice(0, -1).join("/");
-                var partialName = partialPath.split("/").slice(-1)[0];
-                var isRelative = !partialPath.startsWith("/") && parentFolder == ""
-                var fileObject = getFile(isRelative ? currentDir : parentFolder + "/");
-                if (fileObject && fileObject.isDir) {
-                    var possibleResults = Object.keys(fileObject.children).filter((f) => {
-                        return f.startsWith(partialName);
-                    })
-                    if (possibleResults.length > 0) {
-                        commandAsArray[commandAsArray.length - 1] = (isRelative ? "" : parentFolder + "/") + possibleResults[0];
-                        text.html(commandAsArray.join(" "));
-                    }
+                var results = getFilesFromPartialPath(partialPath);
+                if (results && results.length > 0) {
+                    commandAsArray = commandAsArray.slice(0, -1).concat(results);
+                    text.html(commandAsArray.join(" "));
                 }
             }
         }
