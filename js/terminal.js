@@ -95,16 +95,16 @@ function getFilesFromPartialPath(path) {
                 .replace("*", ".*")
         )
     if (fileObject && fileObject.isDir) {
-        var possibleResults = Object.keys(fileObject.children).filter((f) => {
-            if (isRegex)
-                return f.match(regex);
-            else
-                return f.startsWith(partialName);
-        })
-        possibleResults.forEach((item, index) => {
-            if (!isRelative)
-                possibleResults[index] = parentFolder + "/" + item;
-        });
+        var possibleResults = [];
+        for (const [key, value] of Object.entries(fileObject.children)) {
+            if (
+                (isRegex && key.match(regex)) || // If regex match
+                key.startsWith(partialName) // If partial match
+            ) {
+                var fullName = value == "dir" ? key + "/" : key
+                possibleResults.push(isRelative ? fullName : parentFolder + "/" + fullName);
+            }
+        }
         if (isRegex)
             return possibleResults;
         else if (possibleResults.length > 0)
