@@ -119,7 +119,7 @@ var commands = {
       output.push(`<div class='palette-block bg-${color}'></div>`);
     });
 
-    output.push("<br/>");
+    output.push("<br/><br/>");
 
     printHtml(output.join("\n"), showPrompt);
     return;
