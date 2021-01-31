@@ -2,6 +2,7 @@ var commands = {
 
   // cat <path> : Print content of file 
   "cat": function (vars) {
+    var errors = [];
     if (vars.length == 0)
       return "cat: No file specified.";
 
@@ -10,11 +11,13 @@ var commands = {
       var fileObject = getFile(filePath);
 
       if (!fileObject) {
-        return "cat: " + filePath + ": no such file or directory";
+        errors.push("cat: " + filePath + ": no such file or directory");
+        continue;
       }
 
       if (fileObject.isDir) {
-        return "cat: " + filePath + ": Is a directory";
+        errors.push("cat: " + filePath + ": Is a directory");
+        continue;
       }
 
       results += hljs.highlight(
@@ -22,7 +25,14 @@ var commands = {
         fileObject.content
       ).value.replace(/\n/g, '<br/>\n');
     }
-    printHtml(results, showPrompt);
+    // If there are errors, print errors first and then output
+    if (errors.length > 0) {
+      printLine(errors.join("\n"), () => {
+        printHtml(results, showPrompt);
+      });
+    } else {
+      printHtml(results, showPrompt);
+    }
     return;
   },
 
