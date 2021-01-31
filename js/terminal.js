@@ -119,16 +119,22 @@ function getFilesFromPartialPath(path) {
 
 // Print HTML content line by line
 function printHtml(html, onComplete) {
-    if (!html)
-        onComplete();
+    if (!html || html == "") {
+        if (onComplete)
+            onComplete();
+        return;
+    }
     var lines = html.split("\n");
     _print(lines, true, onComplete);
 }
 
 // Print text content line by line
 function printLine(text, onComplete) {
-    if (!text)
-        onComplete();
+    if (!text || text == "") {
+        if (onComplete)
+            onComplete();
+        return;
+    }
     var lines = text.split("\n");
     _print(lines, false, onComplete);
 }
@@ -139,7 +145,8 @@ function _print(lines, is_html, onComplete) {
         setTimeout(function () {
             terminal.append(is_html ? line : "<div class='line'>" + line + "</div>");
             if (index == lines.length - 1) {
-                onComplete();
+                if (onComplete)
+                    onComplete();
             }
             scrollToBottom();
         }, 50 * index);
