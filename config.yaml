@@ -25,35 +25,21 @@ files:
               University: APJ Abdul Kalam Technological University
               Institution: College of Engineering, Cherthala
               Year: 2015-2019
-            
-            - Course: Class XI & XII
-              University: Central Board of Secondary Education
-              Institution: Believers Church English Medium School, Alappuzha
-              Year: 2014-2015
-            
-            - Course: Class X
-              University: Central Board of Secondary Education
-              Institution: Believers Church English Medium School, Alappuzha
-              Year: 2013
         experiences.yaml: |
           ---
           # Professional Experiences
           Jobs:
-            - Organisation: Truecaller
+            Truecaller:
                 - Position: Associate Infrastructure Engineer
                   Duration: Mar 2020 - Present
                 - Position: Intern - Platform & Infrastructure
                   Duration: Sep 2019 - Mar 2020, 6 Months
             
-            - Organisation: MicroID
+            MicroID:
                 - Position: Co-Founder
-                  Duration: Jan 2017 - Present
+                  Duration: Jan 2017
             
-            - Organisation: Openwire Inc.
-                - Position: CTO & Co-Founder
-                  Duration: Oct 2016 - Present
-            
-            - Organisation: Syscort
+            Syscort:
                 - Position: Freelance Android Developer
                   Duration: Feb 2016 - Oct 2016, 9 months
         social_links.yaml: |
