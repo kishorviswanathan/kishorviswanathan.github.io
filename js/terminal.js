@@ -29,6 +29,7 @@ function isMobileorTablet() {
 // Expand and convert path to absolute reference
 function getAbsolutePath(path) {
     path = path.replace("~/", "/home/" + user + "/");
+    path = path.replace("~", "/home/" + user + "/");
     path = path.replace("../", currentDir.split("/").slice(0, -2).join("/") + "/");
     path = path.replace("./", currentDir);
     path = path.startsWith("/") ? path : currentDir + path;
