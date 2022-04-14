@@ -127,7 +127,21 @@ var commands = {
 
   // ping : Prints "pong!!"
   "ping": function (vars) {
-    return "pong!!";
+    if (vars.length == 0) {
+      return "ping: usage error: Destination address required";
+    }
+    let domain = vars[0];
+    let latency = Math.floor(Math.random() * (10 - 2 + 1)) + 2;
+    let response = `PING ${domain} 56(84) bytes of data.
+64 bytes from ${domain}: icmp_seq=1 ttl=64 time=${latency} ms
+64 bytes from ${domain}: icmp_seq=2 ttl=64 time=${latency} ms
+64 bytes from ${domain}: icmp_seq=3 ttl=64 time=${latency} ms
+  
+--- ${domain} ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time ${latency * 3}ms
+rtt min/avg/max/mdev = ${latency}/${latency}/${latency}/0.000 ms
+    `;
+    return response;
   },
 
   // pwd : Shows the current directory
