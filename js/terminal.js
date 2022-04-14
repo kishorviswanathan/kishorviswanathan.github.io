@@ -211,7 +211,18 @@ function executeCommand(command) {
 
 $(window).on("keydown", function (key) {
     var text = $(".prompt").last().find(".text");
-    if (key.key.length > 1) {
+    // If control key is pressed, it's a shortcut
+    if (key.ctrlKey) {
+        if (key.key == "c") {
+            executeCommand("");
+            key.preventDefault();
+            return;
+        } else if (key.key == "u") {
+            text.html("");
+            key.preventDefault();
+            return;
+        }
+    } else if (key.key.length > 1) {
         if (key.key == "Enter") {
             query = text.html().trim();
             executeCommand(query);
