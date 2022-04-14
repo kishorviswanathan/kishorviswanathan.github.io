@@ -4,6 +4,7 @@ const host = "github.io";
 const githubCommitAPIEndpoint = "https://api.github.com/repos/" + user + "/" + user + "." + host + "/commits?per_page=1";
 const terminal = $("#terminal");
 const colorPalette = ["red", "yellow", "green", "blue", "cyan", "magenta", "white", "black"];
+const printInterval = 20;
 
 // Variables
 var currentDir = `/home/${user}/`;
@@ -150,7 +151,7 @@ function _print(lines, is_html, onComplete) {
                     onComplete();
             }
             scrollToBottom();
-        }, 50 * index);
+        }, printInterval * index);
     });
 }
 
@@ -279,7 +280,7 @@ function showPrompt() {
 function scrollToBottom() {
     $("#terminal").animate({
         scrollTop: $("#terminal")[0].scrollHeight
-    }, 50);
+    }, printInterval);
 }
 
 /*------------------------------
