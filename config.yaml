@@ -4,7 +4,7 @@ commandOptions:
     - title: Name
       value: Kishor Viswanathan
     - title: Job Title
-      value: Associate Infrastructure Engineer
+      value: Site Reliability Engineer
     - title: Organisation
       value: Truecaller
     - title: Skills
@@ -30,8 +30,10 @@ files:
           # Professional Experiences
           Jobs:
             Truecaller:
+                - Position: Site Reliability Engineer
+                  Duration: July 2022 - Present
                 - Position: Associate Infrastructure Engineer
-                  Duration: Mar 2020 - Present
+                  Duration: Mar 2020 - July 2022
                 - Position: Intern - Platform & Infrastructure
                   Duration: Sep 2019 - Mar 2020, 6 Months
             
