@@ -10,7 +10,7 @@ commandOptions:
     - title: Skills
       value: Linux, Kubernetes, Cloud Infrastructure
     - title: Email
-      value: developer.kishor@gmail.com
+      value: developer[dot]kishor[at]gmail.com
 
 # Virtual directory structure
 files:
@@ -49,7 +49,7 @@ files:
           # Social Media Links
           Contacts:
             - Type: Email
-              Value: developer.kishor@gmail.com
+              Value: developer[dot]kishor[at]gmail.com
             
             - Type: Github
               Value: https://github.com/kishorv06
